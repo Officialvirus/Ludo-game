@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ludo Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .game-container {
+            text-align: center;
+        }
+        .menu {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .hidden {
+            display: none;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(15, 40px);
+            grid-template-rows: repeat(15, 40px);
+            gap: 2px;
+            margin-top: 20px;
+        }
+        .board div {
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div id="menu" class="menu">
+            <h1>Welcome to Ludo Game</h1>
+            <label for="players">Choose number of players:</label>
+            <select id="players">
+                <option value="2">2 Players</option>
+                <option value="3">3 Players</option>
+                <option value="4">4 Players</option>
+            </select>
+            <button id="start-game">Start Game</button>
+        </div>
+        <div id="board" class="board hidden">
+            <!-- Ludo board will go here -->
+        </div>
+    </div>
+    <script>
+        document.getElementById('start-game').addEventListener('click', startGame);
+
+        function startGame() {
+            const playerCount = parseInt(document.getElementById('players').value);
+            document.getElementById('menu').classList.add('hidden');
+            document.getElementById('board').classList.remove('hidden');
+            initBoard();
+        }
+
+        function initBoard() {
+            const board = document.getElementById('board');
+            board.innerHTML = ''; // Clear the board
+
+            // Initialize the board with 15x15 grid cells
+            for (let i = 0; i < 15 * 15; i++) {
+                const cell = document.createElement('div');
+                board.appendChild(cell);
+            }
+
+            // Add player pieces (for simplicity, just add some colored pieces)
+            addPiece(0, 0, 'red');
+            addPiece(0, 1, 'blue');
+            addPiece(1, 0, 'green');
+            addPiece(1, 1, 'yellow');
+        }
+
+        function addPiece(row, col, color) {
+            const board = document.getElementById('board');
+            const cellIndex = row * 15 + col;
+            const cell = board.children[cellIndex];
+            cell.style.backgroundColor = color;
+        }
+    </script>
+</body>
+</html>
